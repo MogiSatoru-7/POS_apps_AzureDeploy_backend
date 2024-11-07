@@ -2,13 +2,14 @@
 
 #sqlalchemyを使用した場合
 import os
-from sqlalchemy import create_engine
+import pymysql
+from sqlalchemy import create_engine, text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from dotenv import load_dotenv
 
-import mysql.connector
-from mysql.connector import Error
+# pymysql を MySQLdb として使用するよう設定
+pymysql.install_as_MySQLdb()
 
 # .envファイルの読み込み
 load_dotenv()
@@ -35,7 +36,6 @@ print(f"DB_ssl_ca: {DB_ssl_ca}")
 # DATABASE_URLにSSLオプションを追加
 DATABASE_URL = (
     f"mysql+pymysql://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
-    f"?ssl_ca={DB_ssl_ca}"
 )
 
 print("Database URL:", DATABASE_URL)
@@ -49,13 +49,14 @@ engine = create_engine(
         }
     }
 )
-#???
+
+# SessionLocal クラスを作成し、データベース接続のセッションを管理
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+# データベースのベースクラス
 Base = declarative_base()
 
 # データベース接続のテスト
-from sqlalchemy import text
-
 try:
     with engine.connect() as conn:
         result = conn.execute(text("SELECT DATABASE()"))
