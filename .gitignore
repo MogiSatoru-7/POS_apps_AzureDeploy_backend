@@ -1,0 +1,45 @@
+# Python関係
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.env
+
+# 環境設定
+venv/
+env/
+ENV/
+.venv/
+.ENV/
+
+# ログファイル
+*.log
+
+# IDE/エディタの設定
+.vscode/
+.idea/
+
+# データベースファイル
+*.sqlite3
+*.db
+
+# セキュリティ関連
+*.pem
+*.key
+secrets.json
+
+# Jupyter Notebook関連
+.ipynb_checkpoints/
+
+# OS関連
+.DS_Store
+Thumbs.db
+
+# その他
+*.bak
+*.swp
+*.swo
+
+# Git LFS関連
+*.psd
+*.ai
